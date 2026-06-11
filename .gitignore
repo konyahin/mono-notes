@@ -1,0 +1,8 @@
+.gradle
+.kotlin
+
+build
+frontend/node_modules
+frontend/dev-dist
+
+data.db
