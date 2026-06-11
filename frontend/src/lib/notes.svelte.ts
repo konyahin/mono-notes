@@ -31,6 +31,15 @@ class NotesStore {
             content: content
         })
     }
+
+    async search(query: string) {
+        this.loading = true
+        try {
+            this.notes = await api.get(`/notes?q=${encodeURIComponent(query)}`)
+        } finally {
+            this.loading = false
+        }
+    }
 }
 
 export const notes = new NotesStore()

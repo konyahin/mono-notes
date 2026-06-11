@@ -19,8 +19,9 @@ fun Application.configureRouting() {
     routing {
         route("/api/notes") {
             get {
+                val query = call.request.queryParameters["q"]?.takeIf { it.isNotBlank() }
                 call.respond(
-                    Notes.getNotes()
+                    Notes.getNotes(query)
                 )
             }
 
