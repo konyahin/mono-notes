@@ -4,7 +4,7 @@ import io.ktor.server.application.Application
 import org.jetbrains.exposed.v1.jdbc.Database
 import org.jetbrains.exposed.v1.jdbc.SchemaUtils
 import org.jetbrains.exposed.v1.jdbc.transactions.transaction
-import xyz.konyahin.model.Greetings
+import xyz.konyahin.model.Notes
 
 fun Application.configureExposed() {
     Database.connect(
@@ -13,6 +13,6 @@ fun Application.configureExposed() {
     )
 
     transaction {
-        SchemaUtils.create(Greetings)
+        SchemaUtils.create(Notes)
     }
 }

@@ -8,25 +8,25 @@ import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.server.request.receive
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import xyz.konyahin.model.GreetingRequest
-import xyz.konyahin.model.addGreeting
-import xyz.konyahin.model.getAllGreetings
+import xyz.konyahin.model.CreateNoteDto
+import xyz.konyahin.model.NoteDto
+import xyz.konyahin.model.Notes
 
 fun Application.configureRouting() {
     install(ContentNegotiation) {
         json()
     }
     routing {
-        route("/api/greetings") {
+        route("/api/notes") {
             get {
                 call.respond(
-                    getAllGreetings()
+                    Notes.getNotes()
                 )
             }
 
             post {
-                val request = call.receive<GreetingRequest>()
-                addGreeting(request)
+                val dto = call.receive<CreateNoteDto>()
+                Notes.createNote(dto)
                 call.respond(HttpStatusCode.Created)
             }
         }
