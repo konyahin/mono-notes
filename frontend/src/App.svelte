@@ -4,29 +4,43 @@
     import SearchNote from "./lib/SearchNote.svelte";
 </script>
 
-<main class="container">
+<div class="container">
     <header><SearchNote /></header>
     <main><NotesList /></main>
     <footer><AddNote /></footer>
-</main>
+</div>
 
 <style>
     .container {
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr auto;
         height: 100dvh;
     }
-    header {
-        padding-top: 5px;
-    }
     header,
-    footer {
-        flex: 0 0 auto;
+    main {
+        grid-column: 1;
+        grid-row: 1;
+    }
+    header {
+        align-self: start;
+        z-index: 1;
+        padding-top: 5px;
+        background: color-mix(
+            in srgb,
+            var(--pico-background-color) 70%,
+            transparent
+        );
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
     }
     main {
-        flex: 1 1 auto;
         overflow-y: auto;
         min-height: 0;
         overscroll-behavior: contain;
+        padding-top: 3rem;
+    }
+    footer {
+        grid-row: 2;
     }
 </style>
