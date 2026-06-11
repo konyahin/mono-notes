@@ -2,7 +2,7 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`/api${path}`, options)
 
   if (!res.ok) throw new Error(`HTTP ${res.status} on ${path}`)
-  if (res.status === 204 || res.headers.get('Content-Length') === '0') {
+  if (res.headers.get('Content-Length') === '0') {
     return undefined as T
   }
   return res.json()

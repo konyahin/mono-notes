@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount, tick } from "svelte";
+    import { fly } from "svelte/transition";
     import { notes } from "./notes.svelte";
 
     let error = $state<string | null>(null);
@@ -29,9 +30,11 @@
         <article aria-busy="true"></article>
     {:else if error}
         <p role="alert">Error: {error}</p>
+    {:else if notes.notes.length === 0}
+        <p class="empty">No notes yet. Write your first one below ↓</p>
     {:else}
-        {#each notes.notes as { content }}
-            <article>{content}</article>
+        {#each notes.notes as { id, content } (id)}
+            <article in:fly={{ y: 16, duration: 200 }}>{content}</article>
         {/each}
     {/if}
 </div>
@@ -39,8 +42,14 @@
 <style>
     .notes {
         margin: 5px;
+        padding-top: 15px;
     }
     article {
         white-space: pre-wrap;
+    }
+    .empty {
+        text-align: center;
+        color: var(--pico-muted-color);
+        margin-top: 2rem;
     }
 </style>
