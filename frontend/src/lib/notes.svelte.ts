@@ -3,10 +3,12 @@ import { api } from "./api";
 export type Note = {
     id: string,
     content: string,
+    created: string,
 }
 
 type CreatedNote = {
-    id: string
+    id: string,
+    created: string
 }
 
 class NotesStore {

@@ -2,6 +2,7 @@
     import { onMount, tick } from "svelte";
     import { fly } from "svelte/transition";
     import { notes } from "./notes.svelte";
+    import Note from "./Note.svelte";
 
     let error = $state<string | null>(null);
     let container: HTMLDivElement;
@@ -33,8 +34,8 @@
     {:else if notes.notes.length === 0}
         <p class="empty">No notes yet. Write your first one below ↓</p>
     {:else}
-        {#each notes.notes as { id, content } (id)}
-            <article in:fly={{ y: 16, duration: 200 }}>{content}</article>
+        {#each notes.notes as note}
+            <Note {note} />
         {/each}
     {/if}
 </div>
