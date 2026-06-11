@@ -40,4 +40,7 @@
     .notes {
         margin: 5px;
     }
+    article {
+        white-space: pre-wrap;
+    }
 </style>
