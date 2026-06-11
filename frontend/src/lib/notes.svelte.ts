@@ -5,6 +5,10 @@ export type Note = {
     content: string,
 }
 
+type CreatedNote = {
+    id: string
+}
+
 class NotesStore {
     notes = $state<Note[]>([])
     loading = $state(false)
@@ -19,8 +23,11 @@ class NotesStore {
     }
 
     async add(content: string) {
-        await api.post("/notes", { content: content })
-        await this.refresh()
+        let note = await api.post<CreatedNote>("/notes", { content: content })
+        this.notes.push({
+            ...note,
+            content: content
+        })
     }
 }
 

@@ -26,8 +26,8 @@ fun Application.configureRouting() {
 
             post {
                 val dto = call.receive<CreateNoteDto>()
-                Notes.createNote(dto)
-                call.respond(HttpStatusCode.Created)
+                val createdNote = Notes.createNote(dto)
+                call.respond(HttpStatusCode.Created, createdNote)
             }
         }
 
