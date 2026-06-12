@@ -1,8 +1,8 @@
 <script lang="ts">
     import { fly } from "svelte/transition"
-    import type { Note } from "./notes.svelte"
-    import { relative } from "./utils";
-    import { now } from "./now.svelte";
+    import type { Note } from "../api/notes.svelte"
+    import { relative } from "../utils/utils";
+    import { now } from "../utils/now.svelte";
 
     type Props = {
         note: Note;

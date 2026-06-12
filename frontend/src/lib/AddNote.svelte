@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { notes } from "./notes.svelte";
+    import { notes } from "../api/notes.svelte";
 
     const placeholder = "Shift+Enter new line\nEnter to send"
     let note = $state("");

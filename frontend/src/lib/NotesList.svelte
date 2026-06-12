@@ -1,7 +1,6 @@
 <script lang="ts">
     import { onMount, tick } from "svelte";
-    import { fly } from "svelte/transition";
-    import { notes } from "./notes.svelte";
+    import { notes } from "../api/notes.svelte";
     import Note from "./Note.svelte";
 
     let error = $state<string | null>(null);
