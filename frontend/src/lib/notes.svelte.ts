@@ -33,12 +33,7 @@ class NotesStore {
     }
 
     async search(query: string) {
-        this.loading = true
-        try {
-            this.notes = await api.get(`/notes?q=${encodeURIComponent(query)}`)
-        } finally {
-            this.loading = false
-        }
+        this.notes = await api.get(`/notes?q=${encodeURIComponent(query)}`)
     }
 }
 

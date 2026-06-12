@@ -5,7 +5,7 @@
 
     $effect(() => {
         const q = query
-        const id = setTimeout(() => notes.search(q), 200);
+        const id = setTimeout(() => notes.search(q), 300);
         return () => clearTimeout(id);
     });
 </script>
