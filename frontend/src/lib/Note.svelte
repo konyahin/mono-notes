@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { fly } from "svelte/transition"
-    import type { Note } from "../api/notes.svelte"
+    import { fly } from "svelte/transition";
+    import type { Note } from "../api/notes.svelte";
     import { relative } from "../utils/utils";
     import { now } from "../utils/now.svelte";
 
@@ -18,8 +18,25 @@
 </article>
 
 <style>
+    :root {
+        --shadow-color: 0deg 0% 73%;
+    }
     article {
         white-space: pre-wrap;
+        text-align: right;
+        width: max-content;
+        max-width: 100%;
+        margin-left: auto;
+    }
+    @media (prefers-color-scheme: light) {
+        article {
+            box-shadow: 0.4px 0.3px 0.6px
+                hsl(var(--shadow-color) / 0.22),
+            1.1px 0.9px 1.7px -0.7px hsl(var(--shadow-color) / 0.23),
+            2.6px 2.1px 3.9px -1.5px hsl(var(--shadow-color) / 0.25),
+            6.1px 4.8px 9px -2.2px hsl(var(--shadow-color) / 0.26);
+            border: 1px solid rgb(100, 100, 100, 8%);
+        }
     }
     small {
         display: block;

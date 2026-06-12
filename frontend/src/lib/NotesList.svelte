@@ -43,9 +43,7 @@
     .notes {
         margin: 5px;
         padding-top: 15px;
-    }
-    article {
-        white-space: pre-wrap;
+        padding-right: 15px;
     }
     .empty {
         text-align: center;

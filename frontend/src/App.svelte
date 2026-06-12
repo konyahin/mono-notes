@@ -26,13 +26,8 @@
         align-self: start;
         z-index: 1;
         padding-top: 5px;
-        background: color-mix(
-            in srgb,
-            var(--pico-background-color) 70%,
-            transparent
-        );
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
+        background: var(--pico-background-color);
+        box-shadow: 0 8px 8px -8px rgba(0, 0, 0, 0.15);
     }
     main {
         overflow-y: auto;

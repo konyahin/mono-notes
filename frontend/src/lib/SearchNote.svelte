@@ -14,8 +14,8 @@
     bind:value={query}
     type="search"
     name="search"
-    placeholder="Search note"
-    aria-label="Search note"
+    placeholder="Search"
+    aria-label="Search"
     autocomplete="off"
 />
 
