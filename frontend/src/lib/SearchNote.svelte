@@ -16,6 +16,7 @@
     name="search"
     placeholder="Search note"
     aria-label="Search note"
+    autocomplete="off"
 />
 
 <style>
