@@ -1,7 +1,9 @@
 <script lang="ts">
     import { onMount, tick } from "svelte";
+    import { flip } from "svelte/animate";
     import { notes } from "../api/notes.svelte";
     import Note from "./Note.svelte";
+    import { fly } from "svelte/transition";
 
     let error = $state<string | null>(null);
     let container: HTMLDivElement;
@@ -16,7 +18,7 @@
     });
 
     $effect(() => {
-        notes.notes.length;
+        notes.lastAdded;
         tick().then(() => {
             container?.lastElementChild?.scrollIntoView({
                 behavior: "smooth",
@@ -31,10 +33,14 @@
     {:else if error}
         <p role="alert">Error: {error}</p>
     {:else if notes.notes.length === 0}
-        <p class="empty">No notes yet. Write your first one below ↓</p>
+        <div in:fly={{duration: 500}}>
+            <p class="empty">No notes yet. Write your first one below ↓</p>
+        </div>
     {:else}
-        {#each notes.notes as note}
-            <Note {note} />
+        {#each notes.notes as note (note.id)}
+            <div animate:flip={{ duration: 300, delay: 150 }}>
+                <Note {note} />
+            </div>
         {/each}
     {/if}
 </div>

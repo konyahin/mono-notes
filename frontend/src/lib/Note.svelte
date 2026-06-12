@@ -26,7 +26,7 @@
     }
 </script>
 
-<article id={note.id} in:fly={{ y: 16, duration: 200 }}>
+<article in:fly={{ y: 16, duration: 200 }} out:fly={{x: 200, duration: 200}}>
     {note.content}
     <small>{created}</small>
     <div class="actions" role="group">

@@ -14,6 +14,7 @@ type CreatedNote = {
 class NotesStore {
     notes = $state<Note[]>([])
     loading = $state(false)
+    lastAdded = $state(Date.now())
 
     async refresh() {
         this.loading = true
@@ -30,6 +31,7 @@ class NotesStore {
             ...note,
             content: content
         })
+        this.lastAdded = Date.now()
     }
 
     async search(query: string, archived: boolean = false) {
