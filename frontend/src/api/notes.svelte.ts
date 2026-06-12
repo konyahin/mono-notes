@@ -32,8 +32,17 @@ class NotesStore {
         })
     }
 
-    async search(query: string) {
-        this.notes = await api.get(`/notes?q=${encodeURIComponent(query)}`)
+    async search(query: string, archived: boolean = false) {
+        this.notes = await api.get(`/notes?q=${encodeURIComponent(query)}&archived=${archived}`)
+    }
+
+    async archive(id: string) {
+        await api.post(`/notes/${id}/archive`, null)
+
+        var index = this.notes.findIndex((n) => n.id === id)
+        if (index !== -1) {
+            this.notes.splice(index, 1);
+        }
     }
 }
 
