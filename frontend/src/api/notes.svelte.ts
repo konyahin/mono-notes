@@ -4,6 +4,7 @@ export type Note = {
     id: string,
     content: string,
     created: string,
+    isArchived: boolean,
 }
 
 type CreatedNote = {
@@ -16,10 +17,10 @@ class NotesStore {
     loading = $state(false)
     lastAdded = $state(Date.now())
 
-    async refresh() {
+    async refresh(archived: boolean = false) {
         this.loading = true
         try {
-            this.notes = await api.get("/notes")
+            this.notes = await api.get(`/notes?archived=${archived}`)
         } finally {
             this.loading = false
         }
@@ -29,7 +30,8 @@ class NotesStore {
         let note = await api.post<CreatedNote>("/notes", { content: content })
         this.notes.push({
             ...note,
-            content: content
+            content: content,
+            isArchived: false,
         })
         this.lastAdded = Date.now()
     }

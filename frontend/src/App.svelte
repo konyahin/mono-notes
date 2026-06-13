@@ -2,12 +2,38 @@
     import AddNote from "./lib/AddNote.svelte";
     import NotesList from "./lib/NotesList.svelte";
     import SearchNote from "./lib/SearchNote.svelte";
+    import A from "./lib/A.svelte";
+
+    let archive = $state(false);
 </script>
 
 <div class="container">
-    <header><SearchNote /></header>
-    <main><NotesList /></main>
-    <footer><AddNote /></footer>
+    <header><SearchNote {archive} /></header>
+    <main><NotesList {archive} /></main>
+    <footer>
+        {#if !archive}
+            <AddNote />
+        {/if}
+        <div class="toogle">
+            {#if archive}
+                <A
+                    onclick={() => {
+                        archive = false;
+                    }}
+                >
+                    ← to main feed
+                </A>
+            {:else}
+                <A
+                    onclick={() => {
+                        archive = true;
+                    }}
+                >
+                    to archive →
+                </A>
+            {/if}
+        </div>
+    </footer>
 </div>
 
 <style>
@@ -35,7 +61,8 @@
         overscroll-behavior: contain;
         padding-top: 3rem;
     }
-    footer {
-        grid-row: 2;
+    .toogle {
+        text-align: center;
+        margin-bottom: 6px;
     }
 </style>

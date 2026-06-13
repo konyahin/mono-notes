@@ -22,6 +22,7 @@ data class NoteDto(
     val id: UUID,
     val content: String,
     val created: Instant,
+    val isArchived: Boolean,
 )
 
 @Serializable
@@ -71,6 +72,7 @@ object Notes : UUIDTable("notes") {
                 it[Notes.id].value,
                 it[Notes.content],
                 it[Notes.created],
+                it[Notes.isArchived]
             )
         }
     }

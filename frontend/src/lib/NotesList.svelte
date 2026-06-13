@@ -8,15 +8,26 @@
     let error = $state<string | null>(null);
     let container: HTMLDivElement;
 
-    onMount(async () => {
+    let { archive = false } = $props();
+    
+    async function refreshNotes() {
         try {
-            await notes.refresh();
+            await notes.refresh(archive);
         } catch (e) {
             error = e instanceof Error ? e.message : String(e);
         }
         container?.lastElementChild?.scrollIntoView();
+    }
+
+    onMount(async () => {
+        refreshNotes();
     });
 
+    $effect(() => {
+        archive;
+        refreshNotes();
+    });
+    
     $effect(() => {
         notes.lastAdded;
         tick().then(() => {
@@ -33,8 +44,14 @@
     {:else if error}
         <p role="alert">Error: {error}</p>
     {:else if notes.notes.length === 0}
-        <div in:fly={{duration: 500}}>
-            <p class="empty">No notes yet. Write your first one below ↓</p>
+        <div in:fly={{ duration: 500 }}>
+            <p class="empty">
+                {#if archive}
+                    No notes in archive yet
+                {:else}
+                    No notes yet. Write your first one below ↓
+                {/if}
+            </p>
         </div>
     {:else}
         {#each notes.notes as note (note.id)}

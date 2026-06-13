@@ -2,11 +2,17 @@
     import { notes } from "../api/notes.svelte";
 
     let query = $state("");
+    let { archive = false } = $props();
 
     $effect(() => {
-        const q = query
-        const id = setTimeout(() => notes.search(q), 300);
+        query;
+        const id = setTimeout(() => notes.search(query, archive), 300);
         return () => clearTimeout(id);
+    });
+    
+    $effect(() => {
+        archive;
+        query = "";
     });
 </script>
 

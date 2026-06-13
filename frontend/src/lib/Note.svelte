@@ -3,6 +3,7 @@
     import { notes, type Note } from "../api/notes.svelte";
     import { relative } from "../utils/utils";
     import { now } from "../utils/now.svelte";
+    import A from "./A.svelte";
 
     type Props = {
         note: Note;
@@ -11,14 +12,8 @@
     let { note }: Props = $props();
     let created = $derived((now.value, relative(note.created)));
 
-    let copied = $state(false);
-    let copyTimer: number;
-
     async function copy() {
         await navigator.clipboard.writeText(note.content);
-        if (copyTimer) clearTimeout(copyTimer);
-        copied = true;
-        copyTimer = setTimeout(() => (copied = false), 400);
     }
 
     async function archive() {
@@ -26,15 +21,12 @@
     }
 </script>
 
-<article in:fly={{ y: 16, duration: 200 }} out:fly={{x: 200, duration: 200}}>
+<article in:fly={{ y: 16, duration: 200 }} out:fly={{ x: 200, duration: 200 }}>
     {note.content}
     <small>{created}</small>
     <div class="actions" role="group">
-        <!-- svelte-ignore a11y_click_events_have_key_events -->
-        <!-- svelte-ignore a11y_no_static_element_interactions -->
-        <div
-            class="clickable"
-            class:jump={copied}
+        <A
+            animation="jump"
             onclick={() => {
                 copy();
             }}
@@ -55,33 +47,32 @@
                 />
             </svg>
             Copy
-        </div>
-        <!-- svelte-ignore a11y_click_events_have_key_events -->
-        <!-- svelte-ignore a11y_no_static_element_interactions -->
-        <div
-            class="clickable"
-            onclick={() => {
-                archive();
-            }}
-        >
-            <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.4"
-                aria-hidden="true"
+        </A>
+        {#if !note.isArchived}
+            <A
+                onclick={() => {
+                    archive();
+                }}
             >
-                <rect x="2.5" y="3" width="11" height="3" rx="1" />
-                <path
-                    d="M3.5 6v6.5a1 1 0 0 0 1 1H11.5a1 1 0 0 0 1-1V6"
-                    stroke-linecap="round"
-                />
-                <path d="M6.5 8.5H9.5" stroke-linecap="round" />
-            </svg>
-            Archive
-        </div>
+                <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.4"
+                    aria-hidden="true"
+                >
+                    <rect x="2.5" y="3" width="11" height="3" rx="1" />
+                    <path
+                        d="M3.5 6v6.5a1 1 0 0 0 1 1H11.5a1 1 0 0 0 1-1V6"
+                        stroke-linecap="round"
+                    />
+                    <path d="M6.5 8.5H9.5" stroke-linecap="round" />
+                </svg>
+                Archive
+            </A>
+        {/if}
     </div>
 </article>
 
@@ -112,31 +103,11 @@
         opacity: 0.5;
         margin-top: 0.5rem;
     }
-    .clickable {
-        cursor: pointer;
-        margin-left: 8px;
-    }
-    @keyframes jump {
-        0%,
-        100% {
-            transform: translateY(0);
-        }
-        30% {
-            transform: translateY(8px);
-        }
-        60% {
-            transform: translateY(0);
-        }
-        80% {
-            transform: translateY(3px);
-        }
-    }
-    .clickable.jump {
-        animation: jump 400ms ease;
-    }
     .actions {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 2px;
         width: fit-content;
-        opacity: 0.8;
-        margin-bottom: 0px;
+        margin-left: auto;
     }
 </style>

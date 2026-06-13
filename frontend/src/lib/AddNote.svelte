@@ -36,3 +36,9 @@
 {#if error}
     <p role="alert">{error}</p>
 {/if}
+
+<style>
+    textarea {
+        margin-bottom: 6px;
+    }
+</style>
