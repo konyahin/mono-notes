@@ -58,11 +58,11 @@ object Notes : UUIDTable("notes") {
 
     fun getNotes(query: String?, archived: Boolean) = transaction {
         val notes = if (query == null) {
-            Notes.selectAll().where {
+            Notes.selectAll().orderBy(Notes.created).where {
                 Notes.isArchived eq archived
             }
         } else {
-            Notes.selectAll().where {
+            Notes.selectAll().orderBy(Notes.created).where {
                 (Notes.isArchived eq archived) and (Notes.contentLower like "%${query.lowercase()}%")
             }
         }
