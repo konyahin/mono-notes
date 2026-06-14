@@ -41,19 +41,4 @@
         text-decoration: none;
         opacity: 0.8;
     }
-    @keyframes jump {
-        0%,
-        100% {
-            transform: translateY(0);
-        }
-        30% {
-            transform: translateY(8px);
-        }
-        60% {
-            transform: translateY(0);
-        }
-        80% {
-            transform: translateY(3px);
-        }
-    }
 </style>
