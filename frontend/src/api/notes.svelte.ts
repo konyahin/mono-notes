@@ -1,4 +1,5 @@
 import { api } from "./api";
+import { db } from "./db";
 
 export type Note = {
     id: string,
@@ -18,22 +19,41 @@ class NotesStore {
     lastAdded = $state(Date.now())
 
     async refresh(archived: boolean = false) {
-        this.loading = true
+        if (archived) {
+            this.loading = true;
+            this.notes = [];
+            try {
+                this.notes = await api.get("/notes?archived=true");
+            } finally {
+                this.loading = false;
+            }
+            return;
+        }
+
+        this.notes = await db.allNotes();
+
         try {
-            this.notes = await api.get(`/notes?archived=${archived}`)
-        } finally {
-            this.loading = false
+            let serverNotes = await api.get<Note[]>("/notes");
+            this.notes = serverNotes;
+
+            await db.replaceAllNotes(serverNotes);
+        } catch (e) {
+            // TODO: we offline, should notify the user
+            console.error(e);
         }
     }
 
     async add(content: string) {
         let note = await api.post<CreatedNote>("/notes", { content: content })
-        this.notes.push({
+        let fullNote = {
             ...note,
             content: content,
             isArchived: false,
-        })
+        };
+        this.notes.push(fullNote);
         this.lastAdded = Date.now()
+        
+        await db.putNote(fullNote);
     }
 
     async search(query: string, archived: boolean = false) {
@@ -47,6 +67,8 @@ class NotesStore {
         if (index !== -1) {
             this.notes.splice(index, 1);
         }
+        
+        await db.deleteNote(id);
     }
 }
 

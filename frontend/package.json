@@ -20,6 +20,7 @@
     "vite-plugin-pwa": "^1.3.0"
   },
   "dependencies": {
-    "@picocss/pico": "^2.1.1"
+    "@picocss/pico": "^2.1.1",
+    "idb": "^8.0.3"
   }
 }
