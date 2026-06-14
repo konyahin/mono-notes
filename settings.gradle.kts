@@ -18,4 +18,4 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "spa-notes"
+rootProject.name = "mono-notes"

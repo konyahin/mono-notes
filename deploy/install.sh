@@ -6,28 +6,28 @@ if [[ $EUID -ne 0 ]]; then
     exit 1
 fi
 
-if ! getent group spa-notes >/dev/null; then
-    groupadd --system spa-notes
+if ! getent group mono-notes >/dev/null; then
+    groupadd --system mono-notes
 fi
-if ! id -u spa-notes >/dev/null 2>&1; then
-    useradd --system --gid spa-notes \
-        --home-dir /var/lib/spa-notes \
+if ! id -u mono-notes >/dev/null 2>&1; then
+    useradd --system --gid mono-notes \
+        --home-dir /var/lib/mono-notes \
         --shell /usr/sbin/nologin \
-        spa-notes
+        mono-notes
 fi
 
-install -d -m 0755 /opt/spa-notes
-install -d -m 0750 -o spa-notes -g spa-notes /var/lib/spa-notes
-install -d -m 0755 /etc/spa-notes
+install -d -m 0755 /opt/mono-notes
+install -d -m 0750 -o mono-notes -g mono-notes /var/lib/mono-notes
+install -d -m 0755 /etc/mono-notes
 
-install -m 0644 spa-notes-all.jar    /opt/spa-notes/spa-notes.jar
-install -m 0644 spa-notes.service    /etc/systemd/system/spa-notes.service
+install -m 0644 mono-notes-all.jar    /opt/mono-notes/mono-notes.jar
+install -m 0644 mono-notes.service    /etc/systemd/system/mono-notes.service
 
-if [[ ! -f /etc/spa-notes/spa-notes.env ]]; then
-    install -m 0644 spa-notes.env /etc/spa-notes/spa-notes.env
+if [[ ! -f /etc/mono-notes/mono-notes.env ]]; then
+    install -m 0644 mono-notes.env /etc/mono-notes/mono-notes.env
 fi
 
 systemctl daemon-reload
-systemctl enable spa-notes.service
-systemctl restart spa-notes.service
-systemctl --no-pager --full status spa-notes.service || true
+systemctl enable mono-notes.service
+systemctl restart mono-notes.service
+systemctl --no-pager --full status mono-notes.service || true

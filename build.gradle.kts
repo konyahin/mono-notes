@@ -59,13 +59,13 @@ tasks.named("processResources") {
 val packageDist by tasks.registering(Tar::class) {
     dependsOn(tasks.shadowJar)
 
-    archiveBaseName.set("spa-notes")
+    archiveBaseName.set("mono-notes")
     archiveVersion.set(project.version.toString())
     archiveExtension.set("tar.gz")
     compression = Compression.GZIP
 
-    into("spa-notes-${project.version}") {
-        from("$buildDir/libs/spa-notes-all.jar")
+    into("mono-notes-${project.version}") {
+        from("$buildDir/libs/mono-notes-all.jar")
         from("deploy") {
             exclude("install.sh")
             filePermissions { unix("0644") }

@@ -8,8 +8,8 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {
-        name: 'SPA Notes',
-        short_name: 'SPA Notes',
+        name: 'mono notes',
+        short_name: 'mono-notes',
         start_url: '/',
         display: 'standalone',
         background_color: '#ffffff',

@@ -1,0 +1,26 @@
+[Unit]
+Description=mono-notes
+After=network.target
+
+[Service]
+Type=simple
+User=mono-notes
+Group=mono-notes
+
+WorkingDirectory=/opt/mono-notes
+
+EnvironmentFile=/etc/mono-notes/mono-notes.env
+
+ExecStart=/usr/bin/java -jar /opt/mono-notes/mono-notes.jar
+
+Restart=on-failure
+RestartSec=5
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/mono-notes
+
+[Install]
+WantedBy=multi-user.target
