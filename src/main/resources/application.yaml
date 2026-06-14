@@ -1,11 +1,11 @@
 ktor:
   deployment:
-    port: 8080
+    port: ${PORT:8080}
   application:
     modules:
       - xyz.konyahin.ExposedKt.configureExposed
       - xyz.konyahin.RoutingKt.configureRouting
 
 db:
-  url: "jdbc:sqlite:./data.db"
+  path: "${DB_PATH:./data.db}"
   driver: "org.sqlite.JDBC"

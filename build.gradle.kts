@@ -55,3 +55,23 @@ sourceSets.main {
 tasks.named("processResources") {
     dependsOn(buildFrontend)
 }
+
+val packageDist by tasks.registering(Tar::class) {
+    dependsOn(tasks.shadowJar)
+
+    archiveBaseName.set("spa-notes")
+    archiveVersion.set(project.version.toString())
+    archiveExtension.set("tar.gz")
+    compression = Compression.GZIP
+
+    into("spa-notes-${project.version}") {
+        from("$buildDir/libs/spa-notes-all.jar")
+        from("deploy") {
+            exclude("install.sh")
+            filePermissions { unix("0644") }
+        }
+        from("deploy/install.sh") {
+            filePermissions { unix("0755") }
+        }
+    }
+}

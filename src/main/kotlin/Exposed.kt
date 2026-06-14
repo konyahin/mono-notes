@@ -7,8 +7,9 @@ import org.jetbrains.exposed.v1.jdbc.transactions.transaction
 import xyz.konyahin.model.Notes
 
 fun Application.configureExposed() {
+    val dbPath = environment.config.property("db.path").getString()
     Database.connect(
-        url = environment.config.property("db.url").getString(),
+        url = "jdbc:sqlite:$dbPath",
         driver = environment.config.property("db.driver").getString(),
     )
 
