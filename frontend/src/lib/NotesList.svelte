@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onMount, tick } from "svelte";
+    import { tick } from "svelte";
     import { flip } from "svelte/animate";
     import { notes } from "../api/notes.svelte";
     import Note from "./Note.svelte";
@@ -9,7 +9,7 @@
     let container: HTMLDivElement;
 
     let { archive = false } = $props();
-    
+
     async function refreshNotes() {
         try {
             await notes.refresh(archive);
@@ -19,15 +19,11 @@
         container?.lastElementChild?.scrollIntoView();
     }
 
-    onMount(async () => {
-        refreshNotes();
-    });
-
     $effect(() => {
         archive;
         refreshNotes();
     });
-    
+
     $effect(() => {
         notes.lastAdded;
         tick().then(() => {
