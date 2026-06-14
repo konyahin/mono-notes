@@ -11,6 +11,7 @@
     let { archive = false } = $props();
 
     async function refreshNotes() {
+        error = null;
         try {
             await notes.refresh(archive);
         } catch (e) {

@@ -21,3 +21,12 @@ sudo ./install.sh
 
 The script installs a systemd unit and starts the service on port 8080.
 You can change port in the `mono-notes.env` file.
+
+If you want to update mono-notes, just upload a new jar file on the server and restart systemd unit.
+
+```sh
+# on local machine
+scp mono-notes-all.jar user@server:/opt/mono-notes/
+# on server
+systemctl restart mono-notes
+```
