@@ -14,7 +14,7 @@
         {#if !archive}
             <AddNote />
         {/if}
-        <div class="toogle">
+        <div class="toggle">
             {#if archive}
                 <A
                     onclick={() => {
@@ -61,7 +61,7 @@
         overscroll-behavior: contain;
         padding-top: 3rem;
     }
-    .toogle {
+    .toggle {
         text-align: center;
         margin-bottom: 6px;
     }
