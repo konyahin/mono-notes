@@ -25,8 +25,7 @@ You can change port in the `mono-notes.env` file.
 If you want to update mono-notes, just upload a new jar file on the server and restart systemd unit.
 
 ```sh
-# on local machine
-scp mono-notes-all.jar user@server:/opt/mono-notes/
-# on server
-systemctl restart mono-notes
+./gradlew build
+scp build/libs/mono-notes-all.jar user@server:/opt/mono-notes/mono-notes.jar
+ssh user@server 'systemctl restart mono-notes'
 ```

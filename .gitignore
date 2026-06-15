@@ -8,3 +8,4 @@ frontend/node_modules
 frontend/dev-dist
 
 data.db
+update.sh
